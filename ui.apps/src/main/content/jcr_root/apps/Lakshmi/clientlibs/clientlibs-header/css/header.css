@@ -1,0 +1,49 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f7f4;
+    color: #333;
+}
+h1{
+   color: white;
+    text-align: center;
+}
+.header {
+    background-color: #2a4d69; /* Deep travel blue */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Navigation Bar */
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 20px 10px;
+}
+
+nav ul li {
+    margin: 0 20px;
+}
+
+/* Style for links */
+nav ul li a {
+    color: white;              /* set default color */
+    font-weight: bold;
+    text-decoration: none;     /* remove underline */
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+    padding: 5px 0;
+}
+
+/* Hover effect */
+nav ul li a:hover {
+    color: yellow;
+    border-bottom: 2px solid #f5d76e;
+}
+
+/* Active link */
+nav ul li a.active {
+    color: #facc15;  /* golden active link */
+    border-bottom: 2px solid #facc15;
+}

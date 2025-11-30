@@ -1,0 +1,50 @@
+/* About Us Component */
+.cmp-about {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px 30px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: #333;
+  line-height: 1.7;
+}
+
+/* Title Style */
+.cmp-about__title {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  color: #2c3e50; /* matches header/footer tone */
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+}
+
+/* Content Style */
+.cmp-about__content {
+  font-size: 16px;
+  color: #444;
+}
+
+.cmp-about__content p {
+  margin-bottom: 15px;
+}
+
+.cmp-about__content strong {
+  color: #2c3e50; /* highlight headings inside content */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .cmp-about {
+    padding: 15px 20px;
+  }
+  .cmp-about__title {
+    font-size: 26px;
+  }
+  .cmp-about__content {
+    font-size: 15px;
+  }
+}

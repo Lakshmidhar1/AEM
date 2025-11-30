@@ -1,0 +1,8 @@
+<div data-sly-use.about="Lakshmi.core.models.AboutUs" id="${component.id}" class="cmp-about">
+  <h2 class="cmp-about__title" data-sly-element="${about.type || 'h2'}">
+    ${about.title || currentPage.title}
+  </h2>
+  <div class="cmp-about__content">
+    ${about.aboutcontent @ context='html'}
+  </div>
+</div>

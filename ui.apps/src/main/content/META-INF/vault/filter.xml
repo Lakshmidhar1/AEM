@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workspaceFilter version="1.0">
+    <filter root="/apps/Lakshmi"/>
+    <filter root="/apps/Lakshmi/clientlibs"/>
+    <filter root="/apps/Lakshmi/components"/>
+    <filter root="/apps/Lakshmi/i18n"/>
+    <filter root="/apps/Lakshmi/clientlib-header"/>
+    <filter root="/apps/Lakshmi/osgiconfig/config"/>
+    <filter root="/apps/Lakshmi/osgiconfig/config.author"/>
+    <filter root="/apps/Lakshmi/osgiconfig/config.publish"/>
+    <filter root="/apps/Lakshmi/osgiconfig/config.prod"/>
+    <filter root="/apps/Lakshmi/osgiconfig/config.stage"/>
+</workspaceFilter>
