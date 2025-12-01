@@ -1,17 +1,14 @@
 package Lakshmi.core.listeners;
 
 import org.apache.sling.api.resource.ModifiableValueMap;
-import org.apache.sling.api.resource.PersistenceException;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventConstants;
 import org.osgi.service.event.EventHandler;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,10 +19,7 @@ import java.util.Map;
         service = EventHandler.class,
         immediate = true,
         property = {
-                EventConstants.EVENT_TOPIC + "=com/day/cq/replication",
-                EventConstants.EVENT_TOPIC + "=com/day/cq/replication/job",
-                EventConstants.EVENT_TOPIC + "=com/day/cq/replication/job/publish",
-                EventConstants.EVENT_TOPIC + "=com/day/cq/replication/event/emit"
+                EventConstants.EVENT_TOPIC + "=com/day/cq/replication"
         }
 )
 public class PagePublishEventHandler implements EventHandler {
@@ -39,47 +33,38 @@ public class PagePublishEventHandler implements EventHandler {
 
     @Override
     public void handleEvent(Event event) {
-        try {
-            String action = (String) event.getProperty("type");
-            String path = (String) event.getProperty("path");
 
-            // We only care about ACTIVATION events
-            if (!"ACTIVATE".equals(action) || path == null || !path.startsWith("/content")) {
+        try {
+
+            String type = (String) event.getProperty("type");    // ACTIVATE, DEACTIVATE etc.
+            String[] paths = (String[]) event.getProperty("paths");
+
+            if (!"ACTIVATE".equals(type) || paths == null || paths.length == 0) {
                 return;
             }
 
-            LOG.info("Page published: {}", path);
+            String path = paths[0];   // get first published path
 
-            Map<String, Object> authInfo = new HashMap<String, Object>();
+            LOG.info("🔥 Page Published: {}", path);
+
+            Map<String, Object> authInfo = new HashMap<>();
             authInfo.put(ResourceResolverFactory.SUBSERVICE, SUBSERVICE);
 
-            ResourceResolver resolver = null;
+            try (ResourceResolver resolver = resolverFactory.getServiceResourceResolver(authInfo)) {
 
-            try {
-                resolver = resolverFactory.getServiceResourceResolver(authInfo);
+                Resource jcrContent = resolver.getResource(path + "/jcr:content");
 
-                String jcrPath = path + "/jcr:content";
-
-                Resource jcrContent = resolver.getResource(jcrPath);
                 if (jcrContent != null) {
                     ModifiableValueMap mvm = jcrContent.adaptTo(ModifiableValueMap.class);
-                    if (mvm != null) {
-                        mvm.put("changed", true);
-                        resolver.commit();
-                        LOG.info("Added 'changed=true' to {}", jcrPath);
-                    }
-                }
+                    mvm.put("changed", true);
+                    resolver.commit();
 
-            } finally {
-                if (resolver != null && resolver.isLive()) {
-                    resolver.close();
+                    LOG.info("🔥 Added changed=true to {}", path + "/jcr:content");
                 }
             }
 
-        } catch (PersistenceException e) {
-            LOG.error("Error updating jcr:content", e);
         } catch (Exception e) {
-            LOG.error("Unexpected error in replication handler", e);
+            LOG.error("Error in Event Handler", e);
         }
     }
 }

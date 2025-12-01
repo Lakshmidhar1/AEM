@@ -26,4 +26,6 @@ public class Solo {
     public Date getDate() {
         return date;
     }
+
+    public int y = 100;
 }
