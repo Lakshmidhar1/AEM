@@ -38,8 +38,19 @@
                         </goals>
                         <configuration>
                             <bnd><![CDATA[
+Bundle-Name: ${project.name}
+Bundle-SymbolicName: ${project.artifactId}
+Bundle-Version: ${project.version}
+
+Export-Package: Lakshmi.core.*;version=${project.version}
+
+Private-Package: Lakshmi.core.schedulers
+
 Import-Package: javax.annotation;version=0.0.0,*
-                            ]]></bnd>
+
+-metatype: *
+]]></bnd>
+
                         </configuration>
                     </execution>
                 </executions>
