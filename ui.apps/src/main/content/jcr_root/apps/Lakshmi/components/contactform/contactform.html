@@ -1,0 +1,23 @@
+
+<sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
+     data-sly-call="${clientLib.all @ categories='lakshmi.contact'}"/>
+
+<div class="contact-form" data-component="contact-form">
+    <div>
+        <label>Name</label>
+        <input type="text" id="cf-name" value="${properties.name}"/>
+    </div>
+    <div>
+        <label>Email</label>
+        <input type="text" id="cf-email" value="${properties.email}"/>
+    </div>
+    <div>
+        <label>Mobile</label>
+        <input type="text" id="cf-mobile" value="${properties.mobile}"/>
+    </div>
+
+    <!-- Hidden nodePath for edit -->
+    <input type="hidden" id="cf-nodePath" value="${properties.nodePath}"/>
+
+    <button type="button" id="cf-submit">Submit</button>
+</div>
